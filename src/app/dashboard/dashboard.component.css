@@ -1,0 +1,58 @@
+/* Full page */
+.page {
+  min-height: 100vh;
+  background: #0f172a;
+  color: white;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+}
+
+.navbar h2 {
+  color: #3b82f6;
+}
+
+.navbar button {
+  background: #ef4444;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Content */
+.content {
+  padding: 40px;
+  text-align: center;
+}
+
+/* Main Card */
+.card {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+/* Grid */
+.grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Small cards */
+.mini-card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+  width: 150px;
+}

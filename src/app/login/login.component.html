@@ -1,29 +1,33 @@
-<div class="container">
+<div class="page">
+
   <div class="card">
-    
-    <h1>PeerConnect</h1>
-    <p>{{ isRegister ? 'Create your account' : 'Sign in to your account' }}</p>
+
+    <h1 class="title">PeerConnect</h1>
+    <p class="subtitle">
+      {{ isRegister ? 'Create your account' : 'Sign in to your account' }}
+    </p>
 
     <div *ngIf="error" class="error-box">
       {{ error }}
     </div>
 
-    <!-- Register Fields -->
+    <!-- Register fields -->
     <div *ngIf="isRegister">
-      <input type="text" name="name" placeholder="Full Name" [(ngModel)]="formData.name">
-      <input type="text" name="collegeId" placeholder="College ID" [(ngModel)]="formData.collegeId">
+      <input type="text" placeholder="Full Name" [(ngModel)]="formData.name" />
+      <input type="text" placeholder="College ID" [(ngModel)]="formData.collegeId" />
     </div>
 
-    <input type="email" name="email" placeholder="you@college.edu" [(ngModel)]="formData.email">
-    <input type="password" name="password" placeholder="••••••••" [(ngModel)]="formData.password">
+    <!-- Common fields -->
+    <input type="email" placeholder="you@college.edu" [(ngModel)]="formData.email" />
+    <input type="password" placeholder="••••••••" [(ngModel)]="formData.password" />
 
-    <button (click)="isRegister ? handleRegister() : handleLogin()" [disabled]="loading">
-      {{ loading ? 'Processing...' : (isRegister ? 'Create Account' : 'Sign In') }}
+    <button (click)="isRegister ? handleRegister() : handleLogin()">
+      {{ isRegister ? 'Create Account' : 'Sign In' }}
     </button>
 
     <div class="divider">OR</div>
 
-    <p>
+    <p class="toggle">
       {{ isRegister ? 'Already have an account?' : "Don't have an account?" }}
       <span (click)="toggleMode()">
         {{ isRegister ? 'Sign In' : 'Create Account' }}
@@ -31,4 +35,5 @@
     </p>
 
   </div>
+
 </div>

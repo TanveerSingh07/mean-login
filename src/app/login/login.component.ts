@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,64 +14,64 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
 
   isRegister = false;
+
+  formData = {
+    name: '',
+    collegeId: '',
+    email: '',
+    password: ''
+  };
+
   loading = false;
   error = '';
 
-  formData = {
-    email: '',
-    password: '',
-    name: '',
-    collegeId: ''
-  };
-
-  handleChange(event: any) {
-    const { name, value } = event.target;
-    this.formData[name as keyof typeof this.formData] = value;
-    if (this.error) this.error = '';
-  }
+  constructor(private auth: AuthService, private router: Router) {}
 
   handleLogin() {
-    if (!this.formData.email.trim() || !this.formData.password) {
-      this.error = 'Email and password are required';
+    if (!this.formData.email || !this.formData.password) {
+      this.error = "Email and password required";
       return;
     }
 
     this.loading = true;
 
-    // Dummy simulation (since no backend required)
-    setTimeout(() => {
-      if (this.formData.email === 'test@college.edu' && this.formData.password === '123456') {
-        alert(`Welcome back, User!`);
-      } else {
-        this.error = 'Invalid email or password';
+    this.auth.login(this.formData).subscribe({
+      next: (res: any) => {
+        this.auth.setToken(res.token);
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.error = "Invalid credentials";
+        this.loading = false;
       }
-      this.loading = false;
-    }, 1000);
+    });
   }
 
   handleRegister() {
-    if (!this.formData.name.trim() || !this.formData.collegeId.trim() ||
-        !this.formData.email.trim() || !this.formData.password) {
-      this.error = 'All fields are required';
-      return;
-    }
-
-    if (this.formData.password.length < 6) {
-      this.error = 'Password must be at least 6 characters';
+    if (!this.formData.name || !this.formData.collegeId ||
+        !this.formData.email || !this.formData.password) {
+      this.error = "All fields required";
       return;
     }
 
     this.loading = true;
 
-    setTimeout(() => {
-      alert('Registration successful!');
-      this.loading = false;
-    }, 1000);
+    this.auth.register(this.formData).subscribe({
+      next: () => {
+        alert("Registered successfully");
+        this.isRegister = false;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err.error.message;
+        this.loading = false;
+      }
+    });
   }
 
   toggleMode() {
     this.isRegister = !this.isRegister;
     this.error = '';
-    this.formData = { email: '', password: '', name: '', collegeId: '' };
+    this.formData = { name: '', collegeId: '', email: '', password: '' };
   }
 }
