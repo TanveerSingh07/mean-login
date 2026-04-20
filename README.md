@@ -1,66 +1,62 @@
-# 🔐 Angular Authentication with Express (MEAN Stack)
+🔐 Angular Authentication with Express (MEAN Stack)
+📌 Project Overview
 
-## 📌 Project Overview
+This project showcases a basic yet effective authentication system built using the MEAN stack. It demonstrates how frontend and backend work together to manage user login securely.
 
-This project demonstrates a **simple login and authentication system** using:
+🧩 Stack Used:
+Angular → Handles UI and client-side authentication
+Express.js → Manages backend APIs
+Node.js → Runtime environment
+Local Storage → Stores authentication tokens
 
-* **Angular** → Frontend (UI + Authentication Logic)
-* **Express.js** → Backend (API handling)
-* **Local Storage** → Token management
+💡 The main objective is to understand the flow of authentication in a real-world web application.
 
-The goal is to understand how authentication works in a **MEAN stack application**.
+⚙️ Technologies Used
+Angular (Frontend Framework)
+Express.js (Backend Framework)
+Node.js
+HTML & CSS
+LocalStorage (Token Management)
+🔑 Authentication Flow (Frontend - Angular)
 
----
+Authentication is implemented using the following core components:
 
-## ⚙️ Technologies Used
+🔹 1. AuthService
 
-* Angular (Frontend Framework)
-* Express.js (Backend Framework)
-* Node.js
-* HTML, CSS
-* LocalStorage (for storing token)
+The AuthService acts as the central place for handling authentication logic.
 
----
+Responsibilities:
 
-## 🔑 Angular Authentication (Frontend)
-
-Authentication in Angular is handled using the following components:
-
-### 1. AuthService
-
-* Handles login and register API calls
-* Stores token in localStorage
-* Provides authentication status
-
-```ts
+Communicates with backend APIs (Login/Register)
+Stores authentication token in localStorage
+Provides login status across the application
 setToken(token: string) {
   localStorage.setItem('token', token);
 }
-```
+🔹 2. Login Component
 
----
+This component provides the user interface for authentication.
 
-### 2. Login Component
+Features:
 
-* Provides UI for login and registration
-* Sends user credentials to backend
-* Redirects user after successful login
+Accepts user credentials (email/password)
+Sends data to backend API
+Redirects user after successful login
+🔹 3. Route Guard (AuthGuard)
 
----
+The AuthGuard protects restricted routes such as the dashboard.
 
-### 3. Route Guard (AuthGuard)
-
-Used to protect routes like dashboard:
-
-```ts
 canActivate(): boolean {
   if (this.auth.isLoggedIn()) return true;
 
   this.router.navigate(['/login']);
   return false;
 }
-```
 
+Purpose:
+
+Prevents unauthorized access
+Redirects unauthenticated users to the login page
 It Ensures only logged-in users can access protected pages
 
 ---
